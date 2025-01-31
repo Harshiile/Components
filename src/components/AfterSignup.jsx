@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { UserRound, BookOpen, GraduationCap } from 'lucide-react';
 
 function AfterSignup() {
     const [userType, setUserType] = useState('Student');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [prefix, setPrefix] = useState('Mr');
-    const [role, setRole] = useState('subject');
+    const [prefix, setPrefix] = useState(null);
+    const [role, setRole] = useState(null);
+    useEffect(() => {
+        if (userType == 'Teacher') {
+            setPrefix('Mr');
+            setRole('Subject')
+        }
+    }, [userType])
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log({ userType, firstName, lastName, prefix, role });
@@ -107,10 +114,10 @@ function AfterSignup() {
                         <div className="space-y-2 pt-4">
                             <label className="block text-sm font-medium text-white/70">Role</label>
                             <div className="grid grid-cols-2 gap-4">
-                                {(['lab', 'subject']).map((r) => (
+                                {(['Subject', 'Lab']).map((r) => (
                                     <label
                                         key={r}
-                                        className={`flex items-center justify-center p-4 rounded-lg border cursor-pointer transition-all duration-300 ${role === r
+                                        className={`flex items-center justify-center p-3 rounded-lg border cursor-pointer transition-all duration-300 ${role === r
                                             ? 'bg-white text-black border-white'
                                             : 'border-white/10 text-white/70 hover:border-white/30 hover:text-white'
                                             }`}
