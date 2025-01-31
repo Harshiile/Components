@@ -13,7 +13,6 @@ function AfterSignup() {
             setRole('Subject')
         }
     }, [userType])
-
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log({ userType, firstName, lastName, prefix, role });

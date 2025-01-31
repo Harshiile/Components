@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { PlusCircle, BookOpen } from "lucide-react";
 
+const teacherData = {
+  1: "Harshil Parmar",
+  2: "Valkyire Lonen",
+  3: "Chris Mark",
+  4: "Brock Lesnar"
+}
+
+
 function TimeTableForm() {
   const [periodDuration, setPeriodDuration] = useState(30);
   const [specialHours, setSpecialHours] = useState(1);
@@ -21,7 +29,8 @@ function TimeTableForm() {
       return;
     }
     if (newSubject.trim()) {
-      setSubjects([...subjects, { name: newSubject, teachers }]);
+      const teacherNames = [teacherData[teachers[0]], teacherData[teachers[1]]]
+      setSubjects([...subjects, { name: newSubject, teachers: teacherNames }]);
       setNewSubject("");
       setTeachers(["", ""]);
       setIsSubjectOpen(false);
@@ -131,7 +140,7 @@ function TimeTableForm() {
                       key={index}
                       type="text"
                       id="firstName"
-                      placeholder={`Teacher ${index + 1} Name`}
+                      placeholder={`Teacher ${index + 1} Id`}
                       value={teacher}
                       onChange={(e) => {
                         let updatedTeachers = [...teachers];
