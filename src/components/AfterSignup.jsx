@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { UserRound, BookOpen, GraduationCap } from 'lucide-react';
 
 function AfterSignup() {
-    const [userType, setUserType] = useState('student');
+    const [userType, setUserType] = useState('Student');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [prefix, setPrefix] = useState('Mr');
@@ -11,12 +11,13 @@ function AfterSignup() {
         e.preventDefault();
         console.log({ userType, firstName, lastName, prefix, role });
     };
-
+    const userTypeArray = ['Student', 'Teacher']
+    const prefixArray = ['Dr', 'Mr', 'Mrs']
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
             <div className="w-full max-w-md bg-zinc-900 rounded-xl shadow-2xl shadow-white/5 p-8 border border-white/10">
                 <div className="flex items-center justify-center mb-8">
-                    {userType === 'teacher' ? (
+                    {userType === 'Teacher' ? (
                         <UserRound className="h-12 w-12 text-white transition-all duration-500" />
                     ) : (
                         <GraduationCap className="h-12 w-12 text-white transition-all duration-500" />
@@ -26,29 +27,25 @@ function AfterSignup() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* User Type Segmented Control */}
                     <div className="relative p-1.5 bg-zinc-800 rounded-full flex shadow-inner">
-                        {/* Sliding Background */}
                         <div
-                            className={`absolute top-1.5 left-1.5 h-[calc(100%-12px)] w-[calc(50%-6px)] bg-white rounded-full transition-all duration-300 ${userType === 'teacher' ? 'translate-x-full' : 'translate-x-0'
-                                }`}
+                            className={`absolute top-1.5 left-1.5 h-[calc(100%-12px)] w-[calc(50%)] bg-white rounded-full transition-all duration-300`}
+                            style={{
+                                left: `calc(${(userTypeArray.indexOf(userType) / userTypeArray.length) * 100}%)`,
+                            }}
                         ></div>
-                        <button
-                            type="button"
-                            onClick={() => setUserType('student')}
-                            className={`flex-1 py-2 px-4 rounded-full text-sm font-medium relative z-10 transition-colors duration-300 cursor-pointer ${userType === 'student' ? 'text-black' : 'text-white/70 hover:text-white'
-                                }`}
-                        >
-                            Student
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setUserType('teacher')}
-                            className={`flex-1 py-2 px-4 rounded-full text-sm font-medium relative z-10 transition-colors duration-300 cursor-pointer ${userType === 'teacher' ? 'text-black' : 'text-white/70 hover:text-white'
-                                }`}
-                        >
-                            Teacher
-                        </button>
+                        {
+                            userTypeArray.map(item => (
+                                <button
+                                    type="button"
+                                    key={item}
+                                    onClick={() => setUserType(item)}
+                                    className={`flex-1 py-2 px-4 rounded-full text-sm font-medium relative z-10 transition-colors duration-300 cursor-pointer ${userType === item ? 'text-black' : 'text-white/70 hover:text-white'
+                                        }`}>
+                                    {item}
+                                </button>
+                            ))
+                        }
                     </div>
-
                     {/* Name Fields */}
                     <div className="grid grid-cols-2 gap-4">
                         <div className="group">
@@ -83,33 +80,29 @@ function AfterSignup() {
 
                     {/* Teacher Role Selection - Dropdown/Drop-up Animation */}
                     <div
-                        className={`overflow-hidden transition-all duration-500 ${userType === 'teacher' ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
+                        className={`overflow-hidden transition-all duration-500 ${userType === 'Teacher' ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
                             }`}
                     >
                         {/* Prefix Segmented Control */}
-                        <div>
-                            <label className="block text-sm font-medium text-white/70 mb-2">Prefix</label>
-                            <div className="relative p-1.5 bg-zinc-800 rounded-full flex shadow-inner">
-                                {/* Sliding Background */}
-                                <div
-                                    className={`absolute top-1.5 left-1.5 h-[calc(100%-12px)] w-[calc(33.33%-6px)] bg-white rounded-full transition-all duration-300 ${prefix === 'Mr'
-                                        ? 'translate-x-0'
-                                        : prefix === 'Mrs'
-                                            ? 'translate-x-full'
-                                            : 'translate-x-[200%]'
-                                        }`}
-                                ></div>
-                                {['Dr', 'Mr', 'Mrs'].map((p) => (
+                        <div className="relative p-1.5 bg-zinc-800 rounded-full flex shadow-inner">
+                            <div
+                                className={`absolute top-1.5 left-1.5 h-[calc(100%-12px)] w-[calc(33.33%)] bg-white rounded-full transition-all duration-300`}
+                                style={{
+                                    left: `calc(${(prefixArray.indexOf(prefix) / prefixArray.length) * 100}%)`,
+                                }}
+                            ></div>
+                            {
+                                prefixArray.map(item => (
                                     <button
-                                        key={p}
                                         type="button"
-                                        onClick={() => setPrefix(p)}
-                                        className={`flex-1 py-2 px-10 rounded-full text-sm font-medium relative z-10 transition-colors duration-300 cursor-pointer ${prefix === p ? 'text-black bg-white' : 'text-white bg-zinc-800'}`}
-                                    >
-                                        {p}
+                                        key={item}
+                                        onClick={() => setPrefix(item)}
+                                        className={`flex-1 py-2 px-4 rounded-full text-sm font-medium relative z-10 transition-colors duration-300 cursor-pointer ${prefix === item ? 'text-black' : 'text-white/70 hover:text-white'
+                                            }`}>
+                                        {item}
                                     </button>
-                                ))}
-                            </div>
+                                ))
+                            }
                         </div>
                         <div className="space-y-2 pt-4">
                             <label className="block text-sm font-medium text-white/70">Role</label>
