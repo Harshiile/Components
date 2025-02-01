@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { UserRound, BookOpen, GraduationCap } from 'lucide-react';
 
-function AfterSignup() {
+const AfterSignup = () => {
     const [userType, setUserType] = useState('Student');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -13,10 +13,13 @@ function AfterSignup() {
             setRole('Subject')
         }
     }, [userType])
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log({ userType, firstName, lastName, prefix, role });
+        window.location.href = '/timetable'
     };
+
     const userTypeArray = ['Student', 'Teacher']
     const prefixArray = ['Dr', 'Mr', 'Mrs']
     return (
@@ -45,7 +48,7 @@ function AfterSignup() {
                                     type="button"
                                     key={item}
                                     onClick={() => setUserType(item)}
-                                    className={`flex-1 py-2 px-4 rounded-full text-sm font-medium relative z-10 transition-colors duration-300 cursor-pointer ${userType === item ? 'text-black' : 'text-white/70 hover:text-white'
+                                    className={`flex-1 py-2 px-4 rounded-full text-md font-medium relative z-10 transition-colors duration-300 cursor-pointer ${userType === item ? 'text-black' : 'text-white/70 hover:text-white'
                                         }`}>
                                     {item}
                                 </button>
@@ -55,7 +58,7 @@ function AfterSignup() {
                     {/* Name Fields */}
                     <div className="grid grid-cols-2 gap-4">
                         <div className="group">
-                            <label htmlFor="firstName" className="block text-sm font-medium text-white/70 mb-2 group-focus-within:text-white transition-colors duration-200">
+                            <label htmlFor="firstName" className="block text-md font-medium text-white/70 mb-2 group-focus-within:text-white transition-colors duration-200">
                                 First Name
                             </label>
                             <input
@@ -68,7 +71,7 @@ function AfterSignup() {
                             />
                         </div>
                         <div className="group">
-                            <label htmlFor="lastName" className="block text-sm font-medium text-white/70 mb-2 group-focus-within:text-white transition-colors duration-200">
+                            <label htmlFor="lastName" className="block text-md font-medium text-white/70 mb-2 group-focus-within:text-white transition-colors duration-200">
                                 Last Name
                             </label>
                             <input
@@ -103,7 +106,7 @@ function AfterSignup() {
                                         type="button"
                                         key={item}
                                         onClick={() => setPrefix(item)}
-                                        className={`flex-1 py-2 px-4 rounded-full text-sm font-medium relative z-10 transition-colors duration-300 cursor-pointer ${prefix === item ? 'text-black' : 'text-white/70 hover:text-white'
+                                        className={`flex-1 py-2 px-4 rounded-full text-md font-medium relative z-10 transition-colors duration-300 cursor-pointer ${prefix === item ? 'text-black' : 'text-white/70 hover:text-white'
                                             }`}>
                                         {item}
                                     </button>
@@ -111,7 +114,7 @@ function AfterSignup() {
                             }
                         </div>
                         <div className="space-y-2 pt-4">
-                            <label className="block text-sm font-medium text-white/70">Role</label>
+                            <label className="block text-md font-medium text-white/70">Role</label>
                             <div className="grid grid-cols-2 gap-4">
                                 {(['Subject', 'Lab']).map((r) => (
                                     <label

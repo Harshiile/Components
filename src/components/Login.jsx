@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
-import { Github, Chrome, ArrowRight, Lock, Unlock } from 'lucide-react';
+import { ArrowRight, Lock, Unlock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-function App() {
+const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
-    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [passwordType, setPasswordType] = useState("password")
     const [password, setPassword] = useState("");
     const passwordRef = useRef()
@@ -42,13 +42,17 @@ function App() {
             transform: 'rotate(8deg) translate(-20%, 30%)',
         }
     ];
-
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(phone, password);
+        window.location.href = '/aftersignup'
+    }
     return (
         <div className="min-h-screen bg-black flex">
             <div
                 className={`w-full lg:w-1/2 flex flex-col justify-center px-8 lg:px-12 xl:px-24 transition-all duration-500 ${!isLogin ? "order-2" : "order-1"}`}
             >
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="sync">
                     <motion.div
                         key={isLogin ? "login" : "signup"}
                         initial="hidden"
@@ -64,14 +68,14 @@ function App() {
                             {isLogin ? "Sign in to continue" : "Sign up for free!"}
                         </p>
 
-                        <form method='POST' action={`http://localhost:3300/${isLogin ? 'login' : 'signup'}`} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
                                 <input
-                                    name='email'
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Email"
+                                    name='phone'
+                                    type="text"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    placeholder="Phone Number"
                                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all"
                                 />
                             </div>
@@ -102,31 +106,6 @@ function App() {
                             >
                                 {isLogin ? "Sign in" : "Continue"}
                                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                            </button>
-
-                            <div className="relative my-8">
-                                <div className="absolute inset-0 flex items-center">
-                                    <div className="w-full border-t border-white/10"></div>
-                                </div>
-                                <div className="relative flex justify-center text-sm">
-                                    <span className="px-2 bg-black text-gray-500">OR</span>
-                                </div>
-                            </div>
-
-                            <button
-                                type="button"
-                                className="w-full bg-white/5 border border-white/10 text-white py-3 rounded-xl hover:bg-white hover:text-black transition-all flex items-center justify-center space-x-2 mb-3 cursor-pointer group"
-                            >
-                                <Chrome className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                                <span>Continue with Google</span>
-                            </button>
-
-                            <button
-                                type="button"
-                                className="w-full bg-white/5 border border-white/10 text-white py-3 rounded-xl hover:bg-white hover:text-black transition-all flex items-center justify-center space-x-2 cursor-pointer group"
-                            >
-                                <Github className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                                <span>Continue with GitHub</span>
                             </button>
 
                             {isLogin && (
@@ -180,4 +159,4 @@ function App() {
     );
 }
 
-export default App;
+export default Login;
