@@ -3,10 +3,56 @@ import { PlusCircle, BookOpen } from "lucide-react";
 import Navbar from "./Navbar";
 
 const teacherData = {
-    1: "Harshil Parmar",
-    2: "Valkyire Lonen",
-    3: "Chris Mark",
-    4: "Brock Lesnar"
+    1: "John Smith",
+    2: "Emma Johnson",
+    3: "Liam Williams",
+    4: "Olivia Brown",
+    5: "Noah Jones",
+    6: "Ava Garcia",
+    7: "William Miller",
+    8: "Sophia Davis",
+    9: "James Rodriguez",
+    10: "Isabella Martinez",
+    11: "Benjamin Hernandez",
+    12: "Mia Lopez",
+    13: "Lucas Gonzalez",
+    14: "Charlotte Wilson",
+    15: "Henry Anderson",
+    16: "Amelia Thomas",
+    17: "Alexander Taylor",
+    18: "Harper Moore",
+    19: "Daniel Jackson",
+    20: "Evelyn Martin",
+    21: "Michael Lee",
+    22: "Abigail Perez",
+    23: "Ethan Thompson",
+    24: "Ella White",
+    25: "Matthew Harris",
+    26: "Scarlett Clark",
+    27: "Joseph Lewis",
+    28: "Victoria Walker",
+    29: "Samuel Hall",
+    30: "Grace Allen",
+    31: "David Young",
+    32: "Chloe King",
+    33: "Carter Wright",
+    34: "Zoey Scott",
+    35: "Owen Green",
+    36: "Lily Adams",
+    37: "Wyatt Baker",
+    38: "Hannah Nelson",
+    39: "Jack Carter",
+    40: "Aria Mitchell",
+    41: "Gabriel Perez",
+    42: "Natalie Roberts",
+    43: "Anthony Gonzalez",
+    44: "Aubrey Evans",
+    45: "Dylan Carter",
+    46: "Leah Collins",
+    47: "Sebastian Stewart",
+    48: "Madison Sanchez",
+    49: "Nathan Morris",
+    50: "Eleanor Rogers"
 }
 
 const TimeTableForm = () => {
@@ -14,6 +60,8 @@ const TimeTableForm = () => {
     const [specialHours, setSpecialHours] = useState(1);
     const [breakDuration, setBreakDuration] = useState(30);
     const [isSubjectOpen, setIsSubjectOpen] = useState(false);
+    const [classname, setClassname] = useState("")
+    const [division, setDivision] = useState("")
     const [subjects, setSubjects] = useState([]);
     const [newSubject, setNewSubject] = useState("");
     const [teachers, setTeachers] = useState(["", ""]);
@@ -38,7 +86,7 @@ const TimeTableForm = () => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(periodDuration, specialHours, breakDuration);
+        console.log(classname, division, periodDuration, specialHours, breakDuration);
         console.log(subjects);
     };
     return <>
@@ -48,6 +96,34 @@ const TimeTableForm = () => {
                 <div className="w-1/2 pr-4">
                     <h2 className="text-white text-xl font-semibold mb-6">Create Timetable</h2>
                     <form className="space-y-6" onSubmit={handleSubmit}>
+                        <div className="flex gap-x-16">
+                            <div className="group">
+                                <label htmlFor="firstName" className="block text-md font-medium text-white/70 mb-2 group-focus-within:text-white transition-colors duration-200">
+                                    Class Name
+                                </label>
+                                <input
+                                    type="text"
+                                    id="classname"
+                                    value={classname}
+                                    onChange={(e) => setClassname(e.target.value)}
+                                    className="px-4 py-2 bg-zinc-800 border border-white/10 rounded-lg text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
+                                    required
+                                />
+                            </div>
+                            <div className="group">
+                                <label htmlFor="firstName" className="block text-md font-medium text-white/70 mb-2 group-focus-within:text-white transition-colors duration-200">
+                                    Division
+                                </label>
+                                <input
+                                    type="text"
+                                    id="division"
+                                    value={division}
+                                    onChange={(e) => setDivision(e.target.value)}
+                                    className="px-4 py-2 bg-zinc-800 border border-white/10 rounded-lg text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
+                                    required
+                                />
+                            </div>
+                        </div>
                         {/* Period Duration */}
                         <label className="block text-md font-medium text-white/70 mb-2">Period Duration</label>
                         <div className="relative p-1.5 bg-zinc-800 rounded-full flex shadow-inner w-full">
