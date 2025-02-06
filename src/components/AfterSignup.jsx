@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { UserRound, BookOpen, GraduationCap } from 'lucide-react';
-
 const AfterSignup = () => {
     const [userType, setUserType] = useState('Student');
     const [firstName, setFirstName] = useState('');

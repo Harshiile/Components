@@ -1,0 +1,22 @@
+User
+	userId		@id
+	name		string
+	password 	string
+	role 		string
+	
+
+TimeTable
+	tableId		@id
+	userId		@id 	foreignKey
+	class		string
+	division 	string
+	periodDuration	number
+	labDuration	number
+	breakDuration	number
+	
+Subject
+	subId 		@id
+	tableId		@id 	foreignKey
+	subname		string
+	userId 		@id 	foreignKey
+	
