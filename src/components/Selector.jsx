@@ -2,58 +2,22 @@ import { useState } from "react";
 import { PlusCircle, BookOpen } from "lucide-react";
 import Navbar from "./Navbar";
 
-const teacherData = {
-    1: "John Smith",
-    2: "Emma Johnson",
-    3: "Liam Williams",
-    4: "Olivia Brown",
-    5: "Noah Jones",
-    6: "Ava Garcia",
-    7: "William Miller",
-    8: "Sophia Davis",
-    9: "James Rodriguez",
-    10: "Isabella Martinez",
-    11: "Benjamin Hernandez",
-    12: "Mia Lopez",
-    13: "Lucas Gonzalez",
-    14: "Charlotte Wilson",
-    15: "Henry Anderson",
-    16: "Amelia Thomas",
-    17: "Alexander Taylor",
-    18: "Harper Moore",
-    19: "Daniel Jackson",
-    20: "Evelyn Martin",
-    21: "Michael Lee",
-    22: "Abigail Perez",
-    23: "Ethan Thompson",
-    24: "Ella White",
-    25: "Matthew Harris",
-    26: "Scarlett Clark",
-    27: "Joseph Lewis",
-    28: "Victoria Walker",
-    29: "Samuel Hall",
-    30: "Grace Allen",
-    31: "David Young",
-    32: "Chloe King",
-    33: "Carter Wright",
-    34: "Zoey Scott",
-    35: "Owen Green",
-    36: "Lily Adams",
-    37: "Wyatt Baker",
-    38: "Hannah Nelson",
-    39: "Jack Carter",
-    40: "Aria Mitchell",
-    41: "Gabriel Perez",
-    42: "Natalie Roberts",
-    43: "Anthony Gonzalez",
-    44: "Aubrey Evans",
-    45: "Dylan Carter",
-    46: "Leah Collins",
-    47: "Sebastian Stewart",
-    48: "Madison Sanchez",
-    49: "Nathan Morris",
-    50: "Eleanor Rogers"
-}
+const organizationTeachers = {
+    teachers: [
+        { teacher_id: "T001", teacher_name: "John Smith" },
+        { teacher_id: "T002", teacher_name: "Emma Johnson" },
+        { teacher_id: "T003", teacher_name: "David Lee" },
+        { teacher_id: "T004", teacher_name: "Sophia Brown" },
+        { teacher_id: "T005", teacher_name: "Michael Davis" },
+        { teacher_id: "T006", teacher_name: "Olivia Martinez" },
+        { teacher_id: "T007", teacher_name: "Liam Clark" },
+        { teacher_id: "T008", teacher_name: "Ava Wilson" },
+        { teacher_id: "T009", teacher_name: "Mason Moore" },
+        { teacher_id: "T010", teacher_name: "Isabella Taylor" },
+        { teacher_id: "T011", teacher_name: "Lucas Anderson" },
+        { teacher_id: "T012", teacher_name: "Charlotte Harris" }
+    ]
+};
 
 const TimeTableForm = () => {
     const [periodDuration, setPeriodDuration] = useState(30);
@@ -64,7 +28,7 @@ const TimeTableForm = () => {
     const [division, setDivision] = useState("")
     const [subjects, setSubjects] = useState([]);
     const [newSubject, setNewSubject] = useState("");
-    const [teachers, setTeachers] = useState(["", ""]);
+    const [selectedTeachers, setSelectedTeachers] = useState(["", ""]);
 
     const durationArray = [30, 45, 60, 90];
     const specialDurationArray = [1, 2, 3];
@@ -72,23 +36,39 @@ const TimeTableForm = () => {
 
     const addSubject = (e) => {
         e.preventDefault();
-        if (!teachers[0]) {
-            // Toast : "Atleast one teacher is required"
+        if (!selectedTeachers[0]) {
+            // Toast : "At least one teacher is required"
             return;
         }
         if (newSubject.trim()) {
-            const teacherNames = [teacherData[teachers[0]], teacherData[teachers[1]]]
+            const teacherNames = selectedTeachers.map(teacherId => {
+                const teacher = organizationTeachers.teachers.find(t => t.teacher_id === teacherId);
+                return teacher ? teacher.teacher_name : '';
+            });
+
             setSubjects([...subjects, { name: newSubject, teachers: teacherNames }]);
             setNewSubject("");
-            setTeachers(["", ""]);
+            setSelectedTeachers(["", ""]);
             setIsSubjectOpen(false);
         }
     };
+
+    const handleTeacherChange = (index, teacherId) => {
+        const updatedTeachers = [...selectedTeachers];
+        // Prevent selecting the same teacher twice
+        if (teacherId && selectedTeachers.includes(teacherId)) {
+            return;
+        }
+        updatedTeachers[index] = teacherId;
+        setSelectedTeachers(updatedTeachers);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(classname, division, periodDuration, specialHours, breakDuration);
+        console.log(classname, division, periodDuration, specialHours * 60, breakDuration);
         console.log(subjects);
     };
+
     return <>
         <Navbar />
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
@@ -199,11 +179,10 @@ const TimeTableForm = () => {
                             </button>
 
                             {/* Subject Input Form */}
-                            <div className={`flex flex-col gap-y-4 overflow-hidden transition-all duration-300 py-4 ${isSubjectOpen ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}>
-                                <div className="group mx-auto">
+                            <div className={`flex flex-col gap-y-4 overflow-hidden transition-all duration-300 py-4 ${isSubjectOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                                <div className="group mx-auto w-full">
                                     <input
                                         type="text"
-                                        id="firstName"
                                         placeholder="Subject Name"
                                         value={newSubject}
                                         onChange={(e) => setNewSubject(e.target.value)}
@@ -211,20 +190,22 @@ const TimeTableForm = () => {
                                     />
                                 </div>
                                 <div className="flex justify-center gap-x-6">
-                                    {teachers.map((teacher, index) => (
-                                        <input
+                                    {[0, 1].map((index) => (
+                                        <select
                                             key={index}
-                                            type="text"
-                                            id="firstName"
-                                            placeholder={`Teacher ${index + 1} Id`}
-                                            value={teacher}
-                                            onChange={(e) => {
-                                                let updatedTeachers = [...teachers];
-                                                updatedTeachers[index] = e.target.value;
-                                                setTeachers(updatedTeachers);
-                                            }}
-                                            className="w-[40%] px-4 py-2 bg-zinc-800 border border-white/10 rounded-lg text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
-                                        />
+                                            value={selectedTeachers[index]}
+                                            onChange={(e) => handleTeacherChange(index, e.target.value)}
+                                            className="w-[40%] px-4 py-2 bg-zinc-800 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
+                                        >
+                                            <option value="">Select Teacher {index + 1}</option>
+                                            {organizationTeachers.teachers
+                                                .filter(teacher => !selectedTeachers.includes(teacher.teacher_id) || teacher.teacher_id === selectedTeachers[index])
+                                                .map(teacher => (
+                                                    <option key={teacher.teacher_id} value={teacher.teacher_id}>
+                                                        {teacher.teacher_name}
+                                                    </option>
+                                                ))}
+                                        </select>
                                     ))}
                                 </div>
                                 <button
@@ -285,7 +266,7 @@ const TimeTableForm = () => {
                 </div>
             </div>
         </div>
-    </>
+    </>;
 }
 
 export default TimeTableForm;

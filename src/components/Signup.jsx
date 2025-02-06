@@ -104,7 +104,7 @@ const Signup = () => {
                 >
                     {step === 'role' ? (
                         <>
-                            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-100 to-gray-300 text-transparent bg-clip-text">
+                            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-100 to-gray-300 text-transparent bg-clip-text mt-12">
                                 Choose your role
                             </h1>
                             <p className="text-gray-500 text-xl mb-12">
