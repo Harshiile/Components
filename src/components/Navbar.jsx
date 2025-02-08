@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
     return (
         <div>
-            <ul className="bg-black flex min-w-full justify-center gap-x-16 pt-4 absolute">
+            <ul className="bg-black flex min-w-full justify-center gap-x-16 pt-4">
                 <li className="relative group">
                     <NavLink
                         to="/timetable"

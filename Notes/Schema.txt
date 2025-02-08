@@ -1,22 +1,31 @@
 User
-	userId		@id
+	userId		string		@id
 	name		string
 	password 	string
 	role 		string
-	
+	orgIds		string
+	orgIdt		string
 
 TimeTable
-	tableId		@id
-	userId		@id 	foreignKey
-	class		string
-	division 	string
-	periodDuration	number
-	labDuration	number
-	breakDuration	number
+	tableId			string		@id
+	userId			string		@id	foreignKey
+	class			string
+	division 		string
+	startTime		number
+	periodDuration 		number
+	breakDuration   	number
+	labDuration		number
+	MonSub 			string
+	MonTeacher 		string
+	TueSub	 		string
+	TueTeacher 		string
+	WenSub 			string
+	WenTeacher 		string
+	ThursSub 		string
+	ThursTeacher		string
+	FriSub 			string
+	FriTeacher 		string
+	SatSub 			string
+	SatTeacher 		string
 	
-Subject
-	subId 		@id
-	tableId		@id 	foreignKey
-	subname		string
-	userId 		@id 	foreignKey
-	
+// What about labs??

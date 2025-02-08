@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react';
 import { ArrowRight, Lock, Unlock, GraduationCap, School, Building2, LogIn } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { timetableImages } from '../../public/images';
+import { timetableImages } from '../public/images';
 
 const Signup = () => {
     const [step, setStep] = useState('role');
     const [email, setEmail] = useState("");
+    const [name, setName] = useState(null)
     const [orgId, setOrgId] = useState(null)
     const [passwordType, setPasswordType] = useState("password")
     const [password, setPassword] = useState("");
@@ -58,6 +59,7 @@ const Signup = () => {
             role: selectedType,
             orgId
         });
+        window.location.href = '/timetable'
     };
 
     return (
@@ -203,6 +205,16 @@ const Signup = () => {
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder="Email"
+                                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all"
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        name='name'
+                                        type="text"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        placeholder="Name"
                                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all"
                                     />
                                 </div>

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { ArrowRight, Lock, Unlock } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { timetableImages } from '../../public/images';
+import { timetableImages } from '../public/images';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(email, password);
-        // window.location.href = '/role'
+        window.location.href = '/timetable'
     }
 
     return (
